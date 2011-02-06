@@ -1,0 +1,20 @@
+This is an update to nttcp for Linux.  For information on nttcp and
+ttcp, see http://sd.wareonearth.com/~phil/net/ttcp/.  The version of
+nttcp included is based on
+http://sd.wareonearth.com/~phil/net/ttcp/nttcp.c.
+
+The main changes are:
+
+  1) We have modernized and cleaned-up the C usage to the point that
+  it compiles without warning under gcc 4.4.4.
+
+  2) We have added a handler for SIGUSR1 which prints the struct
+  tcp_info statistics (see /usr/include/linux/tcp.h, net/ipv4/tcp.c)
+  for the socket to standard error.
+
+  3) We have added a handler for SIGUSR2 which prints the I/O
+  stattistics to standard error (a la dd).
+
+Both signal handlers are setup so that sending or receiving should
+resume after the handler returns, and we have inserted a few checks
+for interrupted system calls, but it may still induce some flakiness.
